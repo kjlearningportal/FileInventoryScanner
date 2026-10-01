@@ -1,0 +1,37 @@
+# fscan configuration. Copy to config.yaml and edit.
+# Relative paths are resolved from this file's folder.
+
+sources:
+  - name: dept_share
+    root: '\\fileserver\dept'          # UNC path of the share (read-only access is enough)
+  # - name: finance_share
+  #   root: '\\fileserver\finance'
+
+# Where the state database, logs and exports go. Must NOT be inside a source.
+output_dir: output
+
+exclude:
+  dirs:  ['$RECYCLE.BIN', 'System Volume Information', '.snapshot', '~snapshot', 'DfsrPrivate']
+  files: ['~$*', 'Thumbs.db', 'desktop.ini', '.DS_Store']
+
+workers: 8                # parallel file readers
+list_workers: 8           # parallel folder listers
+max_read_mb_per_sec: 50   # cap on data read from the server; 0 = no cap
+chunk_mb: 1               # bytes read from start and end of each file for type + fingerprint
+max_attempts: 3           # retries for locked / unreadable files across runs
+batch_size: 500           # results saved every N files...
+batch_seconds: 5          # ...or every N seconds, whichever first
+scan_hours: null          # e.g. '19:00-07:00' to scan only outside business hours
+sample_size: 500          # files in the speed test used for the time estimate
+
+# ---- Stage 5: sensitive data + business topics ---------------------------------
+content:
+  enabled: true
+  workers: 4               # parallel processes reading file content (CPU-bound)
+  ocr: true                # read scanned PDFs and images with Tesseract
+  tesseract_cmd: null      # null = find it automatically (C:\Program Files\Tesseract-OCR)
+  ocr_lang: eng
+  ocr_timeout: 180         # seconds per page/image before giving up on it
+  max_depth: 3             # attachments / archive members nested inside each other
+  sample_size: 200         # files in the content speed test used for the estimate
+  # rules_dir: rules       # folder with sensitivity.yaml and topics.yaml (default: project rules/)

@@ -1,0 +1,32 @@
+# Business topics. Edit freely: add keywords, add topics, tune the numbers.
+#
+# score = path_weight   x (distinct keywords found in the folder path + file name)
+#       + content_weight x (sum over keywords of min(hits, max_hits_per_keyword))
+# A file gets every topic scoring >= threshold (highest first), else "unclassified".
+# Keywords are case-insensitive whole words/phrases.
+
+threshold: 5
+path_weight: 3
+content_weight: 1
+max_hits_per_keyword: 3
+
+topics:
+  HR/Payroll:
+    [salary, salaries, payslip, pay slip, payroll, offer letter, appointment letter, appraisal,
+     performance review, resignation, relieving letter, experience letter, employee, employees,
+     ctc, provident fund, epf, pf, esic, gratuity, form 16, increment, attendance, leave,
+     recruitment, onboarding, joining, hr, human resources, bonus, incentive, full and final]
+  Finance/Accounts:
+    [invoice, invoices, ledger, general ledger, gl, balance sheet, profit and loss, p&l, budget,
+     forecast, gst, gstr, gst return, tds, tax, audit, reconciliation, bank statement,
+     accounts payable, accounts receivable, payment, remittance, expense, reimbursement,
+     cost centre, cost center, journal entry, trial balance, cash flow, finance, accounts]
+  Legal/Contracts:
+    [agreement, contract, msa, master services agreement, sow, statement of work, nda,
+     non-disclosure, addendum, amendment, legal notice, terms and conditions, indemnity,
+     liability, termination, arbitration, jurisdiction, governing law, confidentiality,
+     power of attorney, lease, legal, litigation, compliance]
+  Sales/Clients:
+    [proposal, rfp, rfq, rfi, quotation, quote, pricing, price list, rate card, opportunity,
+     pipeline, purchase order, po, client, customer, account plan, deal, bid, tender,
+     commission, sales, crm, lead, prospect, renewal]

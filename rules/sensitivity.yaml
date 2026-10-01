@@ -1,0 +1,18 @@
+# File sensitivity levels. Checked top to bottom; the first level that matches wins.
+# Counts are DISTINCT values of a type in the file (high + medium confidence findings).
+#   any:      any one of these types makes the file this level
+#   at_least: {TYPE: n}, having n or more of that type makes the file this level
+
+levels:
+  HIGH:
+    any: [AADHAAR, US_SSN, US_ITIN, CARD, BANK_ACCOUNT, IBAN,
+          PRIVATE_KEY, AZURE_STORAGE_KEY, DB_CONNECTION, AWS_ACCESS_KEY, AWS_SECRET_KEY,
+          GITHUB_TOKEN, SLACK_TOKEN, GOOGLE_API_KEY, JWT, PASSWORD]
+    at_least: {PAN: 10, IN_PASSPORT: 10, US_PASSPORT: 10, IN_VOTER_ID: 10, IN_DRIVING_LICENCE: 10}
+
+  MEDIUM:
+    any: [PAN, IN_PASSPORT, US_PASSPORT, IN_VOTER_ID, IN_DRIVING_LICENCE, GSTIN, US_EIN, DOB, UPI]
+    at_least: {EMAIL: 50, PHONE_IN: 50, PHONE_US: 50}
+
+  LOW:
+    any: [EMAIL, PHONE_IN, PHONE_US, IFSC, SWIFT]
